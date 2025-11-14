@@ -1,7 +1,5 @@
 VERSION = 0.1
 PREFIX ?= /usr
-WALLPAPERS := $(wildcard */)
-DEST := $(DESTDIR)$(PREFIX)/share/rysn-wallpapers
 
 all: options install
 
@@ -15,17 +13,15 @@ clean:
 
 release: clean
 	mkdir -p rysn-wallpapers-${VERSION}
-	cp -R LICENSE Makefile ${WALLPAPERS} ./rysn-wallpapers-${VERSION}
+	cp -R LICENSE Makefile *.png ./rysn-wallpapers-${VERSION}
 	tar -cf rysn-wallpapers-${VERSION}.tar rysn-wallpapers-${VERSION}
 	gzip rysn-wallpapers-${VERSION}.tar
 	rm -rf rysn-wallpapers-${VERSION}
 
 install:
-	mkdir -p ${DEST}
-	$(foreach w,$(WALLPAPERS),\
-		@echo "Copying $(w)"; \
-		@cp $(w) $(DEST);)
-	chmod -R 655 ${DEST}
+	mkdir -p $(DESTDIR)$(PREFIX)/share/rysn-wallpapers
+	cp *.png $(DESTDIR)$(PREFIX)/share/rysn-wallpapers/
+	chmod -R 655 $(DESTDIR)$(PREFIX)/share/rysn-wallpapers
 
 uninstall:
 	rm -fr ${DEST}/share/rysn-wallpapers
