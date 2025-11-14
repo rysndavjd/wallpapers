@@ -1,6 +1,7 @@
 VERSION = 0.1
 PREFIX ?= /usr
-DIRS := $(wildcard */)
+WALLPAPERS := $(wildcard */)
+DEST := $(DESTDIR)$(PREFIX)/share/rysn-wallpapers
 
 all: options install
 
@@ -20,14 +21,13 @@ release: clean
 	rm -rf rysn-wallpapers-${VERSION}
 
 install:
-	mkdir -p ${DESTDIR}${PREFIX}/share/rysn-wallpapers
-	@for w in ./*/*; do \
-    	echo "Copying $$w"; \
-		cp $$w ${DESTDIR}${PREFIX}/share/rysn-wallpapers/; \
-	done
-	chmod -R 655 ${DESTDIR}${PREFIX}/share/rysn-wallpapers
+	mkdir -p ${DEST}/share/rysn-wallpapers
+	$(foreach w,$(WALLPAPERS),\
+		@echo "Copying $(w)"; \
+		@cp $(w) $(DEST);)
+	chmod -R 655 ${DEST}/share/rysn-wallpapers
 
 uninstall:
-	rm -fr ${DESTDIR}${PREFIX}/share/rysn-wallpapers
+	rm -fr ${DEST}/share/rysn-wallpapers
 
 .PHONY: all install uninstall
