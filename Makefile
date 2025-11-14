@@ -15,17 +15,17 @@ clean:
 
 release: clean
 	mkdir -p rysn-wallpapers-${VERSION}
-	cp -R LICENSE Makefile ${DIRS} ./rysn-wallpapers-${VERSION}
+	cp -R LICENSE Makefile ${WALLPAPERS} ./rysn-wallpapers-${VERSION}
 	tar -cf rysn-wallpapers-${VERSION}.tar rysn-wallpapers-${VERSION}
 	gzip rysn-wallpapers-${VERSION}.tar
 	rm -rf rysn-wallpapers-${VERSION}
 
 install:
-	mkdir -p ${DEST}/share/rysn-wallpapers
+	mkdir -p ${DEST}
 	$(foreach w,$(WALLPAPERS),\
 		@echo "Copying $(w)"; \
 		@cp $(w) $(DEST);)
-	chmod -R 655 ${DEST}/share/rysn-wallpapers
+	chmod -R 655 ${DEST}
 
 uninstall:
 	rm -fr ${DEST}/share/rysn-wallpapers
