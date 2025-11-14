@@ -20,7 +20,7 @@ release: clean
 
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/rysn-wallpapers
-	cp *.png $(DESTDIR)$(PREFIX)/share/rysn-wallpapers/
+	cp -fr *.png $(DESTDIR)$(PREFIX)/share/rysn-wallpapers/
 	chmod -R 655 $(DESTDIR)$(PREFIX)/share/rysn-wallpapers
 
 uninstall:
